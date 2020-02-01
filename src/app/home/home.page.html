@@ -1,14 +1,50 @@
+// home.page.html
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-title>Ionic 4 SQLite CRUD Example</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-list lines="full">
+    <form [formGroup]="mainForm" (ngSubmit)="storeData()">
+      <ion-item>
+        <ion-label position="floating">Artist name</ion-label>
+        <ion-input formControlName="artist" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Song name</ion-label>
+        <ion-input formControlName="song" type="text" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">
+            Add Song
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+
+    <ion-list>
+    <ion-list-header>
+      Songs
+    </ion-list-header>
+
+    <ion-item lines="inset" *ngFor="let data of Data">
+      <ion-label>
+        <h5>{{data.artist_name}}</h5>
+        <p>{{data.song_name}}</p>
+      </ion-label>
+
+      <div class="item-note" item-end>
+        <ion-icon name="create" style="zoom:2.0" [routerLink]="['/song/', data.id]"></ion-icon>        
+        <ion-icon name="trash" style="zoom:2.0" (click)="deleteSong(data.id)"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
